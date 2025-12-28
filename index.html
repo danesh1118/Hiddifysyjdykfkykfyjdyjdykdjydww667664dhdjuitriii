@@ -170,17 +170,89 @@ h1 {
   box-shadow: 0 0 15px rgba(0,255,170,0.7);
   z-index: 999;
 }
-.faq {
+
+/* قالب جدید اشتراک اختصاصی */
+.premium-card {
   margin: 40px 0;
-  background: var(--dark);
-  padding: 20px;
+  background: linear-gradient(rgba(0,0,50,0.8), rgba(0,20,80,0.9)),
+              url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=1000') center/cover no-repeat;
   border-radius: 20px;
-  text-align: right;
-}
-.faq h2 {
+  padding: 25px;
+  box-shadow: 0 0 30px rgba(0,212,255,0.5);
+  border: 1px solid rgba(0,212,255,0.3);
   text-align: center;
+}
+.premium-card h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: var(--secondary);
+  text-shadow: 0 0 10px #00ffaa;
+}
+.premium-card p {
+  font-size: 15px;
+  line-height: 1.6;
   margin-bottom: 20px;
 }
+.buy-btn {
+  padding: 16px 30px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ffd700, #ff6b00);
+  color: #000;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 0 25px rgba(255,215,0,0.7);
+  transition: all 0.4s;
+}
+.buy-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 35px rgba(255,215,0,1);
+}
+
+/* آکاردئون FAQ */
+.faq-accordion {
+  margin: 40px 0 20px 0;
+  width: 100%;
+}
+.faq-header {
+  background: var(--dark);
+  padding: 18px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0,212,255,0.4);
+  transition: all 0.4s;
+  user-select: none;
+}
+.faq-header:hover {
+  box-shadow: 0 0 30px rgba(0,212,255,0.7);
+}
+.faq-header::after {
+  content: '▼';
+  float: left;
+  font-size: 18px;
+  transition: transform 0.3s;
+}
+.faq-header.active::after {
+  transform: rotate(180deg);
+}
+.faq-content {
+  background: var(--dark);
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease, padding 0.6s ease;
+  border-radius: 0 0 20px 20px;
+  text-align: right;
+}
+.faq-content.open {
+  padding: 25px 20px;
+  max-height: 800px;
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -239,28 +311,45 @@ h1 {
       </a>
     </div>
 
-    <button class="action-btn" id="actionBtn" onclick="startProgress()">
-      دریافت کانفیگ (بعداً متن را تغییر دهید)
+    <button class="action-btn" id="actionBtn" onclick="startAutoConfig()">
+      دریافت کانفیگ به صورت خودکار
       <div class="progress" id="progress"></div>
     </button>
 
-    <div class="faq">
-      <h2>سوالات متداول (FAQ)</h2>
-      <p><strong>Hiddify چیست؟</strong><br>Hiddify یک کلاینت VPN رایگان، متن‌باز و بدون تبلیغات است که از بیش از ۲۰ پروتکل پیشرفته پشتیبانی می‌کند و برای دور زدن سانسور اینترنت طراحی شده.</p>
-      
-      <p><strong>مزایای امنیتی و حریم خصوصی:</strong><br>
-      این پنل و برنامه Hiddify کاملاً ایمن و بدون خطر هستند. هیچ اطلاعاتی از شما (IP، لاگ فعالیت، داده شخصی یا ترافیک) ذخیره یا جمع‌آوری نمی‌شود. 
-      همه چیز به صورت محلی روی دستگاه شما پردازش می‌شود و سرورها فقط نقش انتقال امن داده را دارند. 
-      کد برنامه متن‌باز است و توسط جامعه جهانی بررسی شده، بنابراین هیچ درب پشتی یا جاسوسی وجود ندارد. 
-      با خیال راحت و بدون نگرانی از نظارت یا نشت اطلاعات استفاده کنید!</p>
-      
-      <p><strong>مشکلات رایج و راه‌حل:</strong><br>
-      - اگر اتصال برقرار نمی‌شود: کانفیگ را بروزرسانی کنید یا سرور دیگری امتحان کنید.<br>
-      - سرعت پایین: از پروتکل Reality یا Hysteria2 استفاده کنید.<br>
-      - قطع شدن مکرر اتصال: برنامه را در پس‌زمینه مجاز کنید، باتری‌سنجی را غیرفعال کنید و <strong>یکبار گوشی خود را خاموش و روشن کنید</strong>.</p>
-      
-      <p><strong>چرا Hiddify انتخاب بهتری است؟</strong><br>سرعت بالا، پایداری عالی، پشتیبانی از تمام پلتفرم‌ها، امنیت حداکثری و کاملاً رایگان!</p>
+    <!-- قالب جدید: اشتراک اختصاصی -->
+    <div class="premium-card">
+      <h2>اشتراک اختصاصی Hiddify</h2>
+      <p>سرعت فوق‌العاده بالا ⚡<br>
+      بدون قطعی و محدودیت<br>
+      امنیت کامل و رمزنگاری نظامی<br>
+      سرورهای اختصاصی و پرسرعت در بهترین دیتاسنترها<br>
+      پشتیبانی ۲۴ ساعته و تضمین کیفیت</p>
+      <a href="https://t.me/V2ray1_ngbot" target="_blank" class="buy-btn">
+        خرید اشتراک اختصاصی
+      </a>
     </div>
+
+    <!-- FAQ آکاردئون -->
+    <div class="faq-accordion">
+      <div class="faq-header" id="faqHeader">سوالات متداول (FAQ)</div>
+      <div class="faq-content" id="faqContent">
+        <p><strong>Hiddify چیست؟</strong><br>Hiddify یک کلاینت VPN رایگان، متن‌باز و بدون تبلیغات است که از بیش از ۲۰ پروتکل پیشرفته پشتیبانی می‌کند و برای دور زدن سانسور اینترنت طراحی شده.</p>
+        
+        <p><strong>مزایای امنیتی و حریم خصوصی:</strong><br>
+        این پنل و برنامه Hiddify کاملاً ایمن و بدون خطر هستند. هیچ اطلاعاتی از شما (IP، لاگ فعالیت، داده شخصی یا ترافیک) ذخیره یا جمع‌آوری نمی‌شود. 
+        همه چیز به صورت محلی روی دستگاه شما پردازش می‌شود و سرورها فقط نقش انتقال امن داده را دارند. 
+        کد برنامه متن‌باز است و توسط جامعه جهانی بررسی شده، بنابراین هیچ درب پشتی یا جاسوسی وجود ندارد. 
+        با خیال راحت و بدون نگرانی از نظارت یا نشت اطلاعات استفاده کنید!</p>
+        
+        <p><strong>مشکلات رایج و راه‌حل:</strong><br>
+        - اگر اتصال برقرار نمی‌شود: کانفیگ را بروزرسانی کنید یا سرور دیگری امتحان کنید.<br>
+        - سرعت پایین: از پروتکل Reality یا Hysteria2 استفاده کنید.<br>
+        - قطع شدن مکرر اتصال: برنامه را در پس‌زمینه مجاز کنید، باتری‌سنجی را غیرفعال کنید و <strong>یکبار گوشی خود را خاموش و روشن کنید</strong>.</p>
+        
+        <p><strong>چرا Hiddify انتخاب بهتری است؟</strong><br>سرعت بالا، پایداری عالی، پشتیبانی از تمام پلتفرم‌ها، امنیت حداکثری و کاملاً رایگان!</p>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -279,17 +368,16 @@ h1 {
 </div>
 
 <script>
-// تولید سوال تفریق تصادفی (جواب همیشه بین 2 تا 30)
+// تولید سوال تفریق تصادفی (جواب 2 تا 30)
 let correctAnswer;
 function generateMathQuestion() {
-  const num1 = Math.floor(Math.random() * 29) + 12; // عدد اول بین 12 تا 40
-  const num2 = Math.floor(Math.random() * (num1 - 2)) + 1; // عدد دوم کوچکتر، تا جواب حداقل 2 بشه
-  correctAnswer = num1 - num2; // جواب بین 2 تا 30
+  const num1 = Math.floor(Math.random() * 29) + 12;
+  const num2 = Math.floor(Math.random() * (num1 - 2)) + 1;
+  correctAnswer = num1 - num2;
 
   document.getElementById('mathQuestion').textContent = `${num1} - ${num2} = ?`;
 }
 
-// بررسی جواب
 function checkCaptcha() {
   const userAnswer = parseInt(document.getElementById('captchaInput').value);
   const errorMsg = document.getElementById('errorMsg');
@@ -301,28 +389,45 @@ function checkCaptcha() {
     errorMsg.style.display = 'block';
     document.getElementById('captchaInput').value = '';
     setTimeout(() => { errorMsg.style.display = 'none'; }, 2000);
-    generateMathQuestion(); // سوال جدید
+    generateMathQuestion();
   }
 }
 
-// جلوگیری از paste
 document.getElementById('captchaInput').addEventListener('paste', (e) => {
   e.preventDefault();
   return false;
 });
 
-// شروع اولیه
 generateMathQuestion();
 
-function startProgress() {
+// آکاردئون FAQ
+document.getElementById('faqHeader').addEventListener('click', function() {
+  this.classList.toggle('active');
+  document.getElementById('faqContent').classList.toggle('open');
+});
+
+// لینک ساب
+const subUrl = "https://raw.githubusercontent.com/danesh1118/VIP/refs/heads/main/Config";
+const encodedUrl = encodeURIComponent(subUrl);
+const deepLink = `hiddify://install-sub?url=${encodedUrl}#VIP_Config`;
+
+function startAutoConfig() {
   const btn = document.getElementById('actionBtn');
   const progress = document.getElementById('progress');
   btn.disabled = true;
   progress.style.width = '100%';
+
+  navigator.clipboard.writeText(subUrl).catch(() => {
+    alert('کپی در کلیپ‌بورد失敗 کرد! لطفاً دستی کپی کنید.');
+  });
+
   setTimeout(() => {
     progress.style.width = '0';
     btn.disabled = false;
-    alert('عملیات با موفقیت انجام شد! (بعداً متن واقعی را اضافه کنید)');
+
+    window.location.href = deepLink;
+
+    alert('کانفیگ با موفقیت کپی شد و در حال وارد شدن خودکار به Hiddify است!\n\nاگر برنامه باز نشد:\n1. برنامه Hiddify را باز کنید\n2. از کلیپ‌بورد ایمپورت کنید');
   }, 5000);
 }
 
@@ -340,8 +445,8 @@ function openModal(type) {
     </ul>`,
     howto: `<h2>نحوه استفاده از پنل</h2>
     <p>۱. برنامه Hiddify را از دکمه‌های بالا دانلود و نصب کنید.<br>
-    ۲. روی دکمه "دریافت کانفیگ" کلیک کنید (۵ ثانیه صبر کنید).<br>
-    ۳. کانفیگ دریافت‌شده را در برنامه وارد کنید.<br>
+    ۲. روی دکمه "دریافت کانفیگ به صورت خودکار" کلیک کنید (۵ ثانیه صبر کنید).<br>
+    ۳. کانفیگ به صورت خودکار کپی و وارد برنامه می‌شود.<br>
     ۴. اتصال را فعال کنید و از اینترنت آزاد لذت ببرید!<br>
     در صورت مشکل، با پشتیبانی تماس بگیرید.</p>`
   };
@@ -355,4 +460,4 @@ function closeModal() {
 </script>
 
 </body>
-</html>
+    </html>
